@@ -18,13 +18,13 @@ RUN ls -l
 WORKDIR /tmp/vips-${LIBVIPS_VERSION}
 RUN meson setup build-dir --buildtype=release --prefix=/vips
 RUN ls -l
+RUN cat meson_options.txt
 WORKDIR build-dir
 RUN ls -l
 RUN ninja
 RUN ninja install
 RUN ldconfig
 RUN ls -l /vips/lib
-RUN ls -l /usr/local/lib | grep vips
 RUN ls -l /vips/lib/pkgconfig
 
 #    libjpeg62-turbo-dev libpng-dev \
