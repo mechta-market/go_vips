@@ -5,12 +5,12 @@ ARG LIBVIPS_VERSION=8.15.2
 # Installs libvips + required libraries
 RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update && \
-    apt-get install --no-install-recommends -y \
+  apt-get install --no-install-recommends -y \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev
 
 RUN DEBIAN_FRONTEND=noninteractive \
-    cd /tmp \
+    cd /tmp && \
     curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
     tar zxf vips-${LIBVIPS_VERSION}.tar.gz && \
     cd /tmp/vips-${LIBVIPS_VERSION} && \
