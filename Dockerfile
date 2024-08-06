@@ -8,7 +8,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update && \
   apt-get install --no-install-recommends -y \
     ca-certificates curl meson \
-    build-essential pkg-config libglib2.0-dev libexpat1-dev
+    build-essential pkg-config libglib2.0-dev libexpat1-dev \
     libgsf-1-dev libtiff5-dev libjpeg62-turbo-dev libexif-dev librsvg2-dev libpoppler-glib-dev libarchive-dev \
     fftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
     libpango1.0-dev libopenexr-dev libopenjp2-7-dev
