@@ -16,7 +16,7 @@ RUN tar xf vips-${LIBVIPS_VERSION}.tar.xz
 RUN pwd
 RUN ls -l
 WORKDIR /tmp/vips-${LIBVIPS_VERSION}
-RUN meson setup build-dir --buildtype=release --prefix=/vips
+RUN meson setup build-dir --buildtype=release --libdir=lib --prefix=/vips
 RUN ls -l
 RUN cat meson_options.txt
 WORKDIR build-dir
@@ -25,7 +25,6 @@ RUN ninja
 RUN ninja install
 RUN ldconfig
 RUN ls -l /vips/lib
-RUN ls -l /vips/lib/pkgconfig
 
 #    libjpeg62-turbo-dev libpng-dev \
 #    libwebp-dev libtiff5-dev libgif-dev libexif-dev libxml2-dev libpoppler-glib-dev \
