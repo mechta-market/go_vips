@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     cd /tmp && \
     curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
     ls -l && \
-    tar zxf vips-${LIBVIPS_VERSION}.tar.xz && \
+    tar xvf vips-${LIBVIPS_VERSION}.tar.xz && \
     cd /tmp/vips-${LIBVIPS_VERSION} && \
     meson setup build-dir --buildtype=release --prefix=/vips && \
     cd build-dir && \
