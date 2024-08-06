@@ -9,17 +9,21 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    cd /tmp && \
-    curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
-    ls -l && \
-    tar xvf vips-${LIBVIPS_VERSION}.tar.xz && \
-    cd /tmp/vips-${LIBVIPS_VERSION} && \
-    meson setup build-dir --buildtype=release --prefix=/vips && \
-    cd build-dir && \
-    ninja && \
-    ninja install && \
-    ldconfig
+RUN cd /tmp
+RUN curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz
+RUN ls -l
+RUN tar xvf vips-${LIBVIPS_VERSION}.tar.xz
+RUN cd /tmp/vips-${LIBVIPS_VERSION}
+RUN meson setup build-dir --buildtype=release --prefix=/vips
+RUN ls -l
+RUN cd build-dir
+RUN ls -l
+RUN ninja
+RUN ninja install
+RUN ldconfig
+RUN ls -l /vips/lib
+RUN ls -l /usr/local/lib | grep vips
+RUN ls -l /vips/lib/pkgconfig
 
 #    libjpeg62-turbo-dev libpng-dev \
 #    libwebp-dev libtiff5-dev libgif-dev libexif-dev libxml2-dev libpoppler-glib-dev \
