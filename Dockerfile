@@ -14,15 +14,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
 #    libpango1.0-dev libopenexr-dev libopenjp2-7-dev
 
 # Install libcgif
+RUN echo $LD_LIBRARY_PATH
+RUN echo $PKG_CONFIG_PATH
 WORKDIR /tmp
 RUN curl -fsSLO https://github.com/dloebl/cgif/archive/refs/tags/v${LIBCGIF_VERSION}.tar.gz
-RUN ls -l
 RUN tar zxf v${LIBCGIF_VERSION}.tar.gz
 RUN ls -l
-#WORKDIR /tmp/v${LIBCGIF_VERSION}
-#RUN meson setup --prefix=/usr/local build
-#RUN meson install -C build
-#RUN ldconfig
+WORKDIR /tmp/cgif-${LIBCGIF_VERSION}
+RUN meson setup --prefix=/usr/local build
+RUN meson install -C build
+RUN ldconfig
 
 #RUN cd /tmp && \
 #  curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
