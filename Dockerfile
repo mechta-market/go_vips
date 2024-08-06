@@ -9,29 +9,27 @@ RUN DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev
-#    libgsf-1-dev libtiff5-dev libjpeg62-turbo-dev libexif-dev librsvg2-dev libpoppler-glib-dev libarchive-dev \
-#    fftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
-#    libpango1.0-dev libopenexr-dev libopenjp2-7-dev
+    libgsf-1-dev libtiff5-dev libjpeg62-turbo-dev libexif-dev librsvg2-dev libpoppler-glib-dev libarchive-dev \
+    fftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
+    libpango1.0-dev libopenexr-dev libopenjp2-7-dev
 
 # Install libcgif
-RUN echo $LD_LIBRARY_PATH
-RUN echo $PKG_CONFIG_PATH
-WORKDIR /tmp
-RUN curl -fsSLO https://github.com/dloebl/cgif/archive/refs/tags/v${LIBCGIF_VERSION}.tar.gz
-RUN tar zxf v${LIBCGIF_VERSION}.tar.gz
-RUN ls -l
-WORKDIR /tmp/cgif-${LIBCGIF_VERSION}
-RUN meson setup --prefix=/usr/local build
-RUN meson install -C build
-RUN ldconfig
+RUN cd /tmp && \
+    curl -fsSLO https://github.com/dloebl/cgif/archive/refs/tags/v${LIBCGIF_VERSION}.tar.gz && \
+    tar zxf v${LIBCGIF_VERSION}.tar.gz && \
+    cd cgif-${LIBCGIF_VERSION} && \
+    meson setup --prefix=/usr/local build && \
+    meson install -C build && ldconfig && \
+    echo $LD_LIBRARY_PATH && \
+    echo $PKG_CONFIG_PATH
 
-#RUN cd /tmp && \
-#  curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
-#  tar xf vips-${LIBVIPS_VERSION}.tar.xz && \
-#  cd vips-${LIBVIPS_VERSION} && \
-#  meson setup build-dir --buildtype=release --libdir=lib --prefix=/usr/local && \
-#  cd build-dir && \
-#  ninja && ninja install && ldconfig
+RUN cd /tmp && \
+  curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
+  tar xf vips-${LIBVIPS_VERSION}.tar.xz && \
+  cd vips-${LIBVIPS_VERSION} && \
+  meson setup build-dir --buildtype=release --libdir=lib --prefix=/usr/local && \
+  cd build-dir && \
+  ninja && ninja install && ldconfig
 
 #ENV LD_LIBRARY_PATH="/vips/lib:$LD_LIBRARY_PATH"
 #ENV PKG_CONFIG_PATH="/vips/lib/pkgconfig:$PKG_CONFIG_PATH"
