@@ -18,7 +18,7 @@ RUN cd /tmp && \
     curl -fsSLO https://github.com/dloebl/cgif/archive/refs/tags/v${LIBCGIF_VERSION}.tar.gz && \
     tar zxf v${LIBCGIF_VERSION}.tar.gz && \
     cd cgif-${LIBCGIF_VERSION} && \
-    meson setup --prefix=/usr/local build && \
+    meson setup --buildtype=release --libdir=lib --prefix=/usr/local build && \
     meson install -C build && ldconfig
 
 RUN cd /tmp && \
