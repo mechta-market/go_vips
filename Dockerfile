@@ -9,16 +9,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev
 
-RUN cd /tmp
+WORKDIR /tmp
 RUN curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz
 RUN ls -l
 RUN tar xf vips-${LIBVIPS_VERSION}.tar.xz
 RUN pwd
 RUN ls -l
-RUN cd /tmp/vips-${LIBVIPS_VERSION}
+WORKDIR /tmp/vips-${LIBVIPS_VERSION}
 RUN meson setup build-dir --buildtype=release --prefix=/vips
 RUN ls -l
-RUN cd build-dir
+WORKDIR build-dir
 RUN ls -l
 RUN ninja
 RUN ninja install
