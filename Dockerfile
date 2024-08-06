@@ -3,7 +3,7 @@ FROM golang:1.22.3-bullseye as builder
 ARG LIBCGIF_VERSION=0.4.1
 ARG LIBVIPS_VERSION=8.15.2
 
-# Installs libvips + required libraries
+# Installs required libraries
 RUN DEBIAN_FRONTEND=noninteractive \
   apt-get update && \
   apt-get install --no-install-recommends -y \
@@ -18,26 +18,20 @@ RUN cd /tmp && \
     curl -fsSLO https://github.com/dloebl/cgif/archive/refs/tags/v${LIBCGIF_VERSION}.tar.gz && \
     tar zxf v${LIBCGIF_VERSION}.tar.gz && \
     cd cgif-${LIBCGIF_VERSION} && \
-    meson setup --buildtype=release --libdir=lib --prefix=/usr/local build && \
+    meson setup --buildtype=release --prefix=/usr build && \
     meson install -C build && ldconfig
 
+# Install libvips
 RUN cd /tmp && \
   curl -fsSLO https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.xz && \
   tar xf vips-${LIBVIPS_VERSION}.tar.xz && \
   cd vips-${LIBVIPS_VERSION} && \
-  meson setup --buildtype=release --libdir=lib --default-library=static --prefix=/usr/local build-dir && \
+  meson setup --buildtype=release --prefix=/usr build-dir && \
   cd build-dir && \
   ninja && ninja install && ldconfig
 
-RUN ls -lsh /usr/local/lib
-
-ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-#ENV LD_LIBRARY_PATH="/vips/lib:/usr/local/lib:$LD_LIBRARY_PATH"
-#ENV PKG_CONFIG_PATH="/vips/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/lib/pkgconfig:/usr/X11/lib/pkgconfig"
-
-RUN ldconfig
+#ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+#ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 ENV VIPS_WARNING=0
 ENV MALLOC_ARENA_MAX=2
