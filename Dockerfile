@@ -1,4 +1,4 @@
-FROM golang:1.23-bookworm as builder
+FROM golang:1.23-bullseye as builder
 
 ARG LIBCGIF_VERSION=0.4.1
 ARG LIBVIPS_VERSION=8.15.2
@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev \
     libgsf-1-dev libtiff5-dev libjpeg62-turbo-dev libexif-dev librsvg2-dev libpoppler-glib-dev libarchive-dev \
-    libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
+    fftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
     libpango1.0-dev libopenexr-dev libopenjp2-7-dev libopenslide-dev libmagickwand-dev
 
 # Install libcgif
@@ -32,8 +32,6 @@ RUN cd /tmp && \
 
 #ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 #ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-# fftw3-dev
 
 ENV VIPS_WARNING=0
 ENV MALLOC_ARENA_MAX=2
