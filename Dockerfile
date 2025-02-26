@@ -1,7 +1,7 @@
 FROM golang:1.23-bullseye as builder
 
-ARG LIBCGIF_VERSION=0.4.1
-ARG LIBVIPS_VERSION=8.15.2
+ARG LIBCGIF_VERSION=0.5.0
+ARG LIBVIPS_VERSION=8.17.0
 
 # Installs required libraries
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -33,7 +33,7 @@ RUN cd /tmp && \
 #ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 #ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-ENV VIPS_WARNING=0
+ENV VIPS_WARNING=1
 ENV MALLOC_ARENA_MAX=2
 
 CMD ["/bin/bash"]
