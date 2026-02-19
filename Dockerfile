@@ -1,4 +1,4 @@
-FROM golang:1.26-bookworm as builder
+FROM golang:1.26-bookworm AS builder
 
 ARG LIBCGIF_VERSION=0.5.0
 ARG LIBVIPS_VERSION=8.16.0
@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     ca-certificates curl meson \
     build-essential pkg-config libglib2.0-dev libexpat1-dev \
     libgsf-1-dev libtiff5-dev libjpeg62-turbo-dev libexif-dev librsvg2-dev libpoppler-glib-dev libarchive-dev \
-    fftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
+    libfftw3-dev libpng-dev libimagequant-dev liborc-0.4-dev libmatio-dev libcfitsio-dev libwebp-dev libniftiio-dev \
     libpango1.0-dev libopenexr-dev libopenjp2-7-dev libopenslide-dev libmagickwand-dev
 
 # Install libcgif
