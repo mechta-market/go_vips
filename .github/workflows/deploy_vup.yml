@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OWNER: mechta-market
-      IMAGE: go_vips:1.1
+      IMAGE: go_vips:1.2
     steps:
       - uses: actions/checkout@v4
 
