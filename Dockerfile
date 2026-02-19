@@ -1,4 +1,4 @@
-FROM golang:1.23-bullseye as builder
+FROM golang:1.26-bullseye as builder
 
 ARG LIBCGIF_VERSION=0.5.0
 ARG LIBVIPS_VERSION=8.16.0
